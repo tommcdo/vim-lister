@@ -36,7 +36,7 @@ COMMANDS                                        *lister-mappings*
 :Lgrep[!] {pattern}     Like |:Qgrep|, but for the |location-list|.
 
                                                 *lister-:Qargs*
-:Qargs[!]               Set the |quickfix| list to the unique set of files
+:Qargs[!]               Set the |argument-list| to the unique set of files
                         in the |quickfix| list. If [!] is given, use the local
                         argument list.
 
