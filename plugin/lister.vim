@@ -40,15 +40,15 @@ function! s:get_arg_list()
 endfunction
 
 function! s:arg_grep(command, query, bang)
-	let l:args = join(s:get_arg_list())
-	execute a:command.a:bang a:query l:args
+	let l:args = s:before(s:get_arg_list())
+	call s:list_grep(s:get_arg_list(), a:command, a:query, a:bang)
+	call s:after(s:get_arg_list(), 'arguments')
 endfunction
 
 function! s:arg_filter(query, bang)
-	let l:op = a:bang == '!' ? '!~#' : '=~#'
-	let l:filter = 'v:val '.l:op.' "'.escape(a:query, '"\').'"'
-	let l:args = join(filter(s:get_arg_list(), l:filter))
-	execute 'args' l:args
+	let l:args = s:before(s:get_arg_list())
+	call s:list_filter(l:args, 'args', a:query, a:bang)
+	call s:after(s:get_arg_list(), 'arguments')
 endfunction
 
 function! s:grep_list(list, pattern, v, lhs)
