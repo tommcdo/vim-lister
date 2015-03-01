@@ -22,6 +22,13 @@ COMMANDS                                        *lister-commands*
                                                 *lister-:Agrep*
 :Agrep[!] [arguments]   |:grep| over files in the |argument-list|.
 
+                                                *lister-:Algrep*
+:Algrep[!] [arguments]  Like |:Agrep|, but with |:lgrep|.
+
+                                                *lister-:Alvimgrep*
+:Alvimgrep[!] /{pattern}/[g][j]
+                        Like |:Avimgrep|, but with |:lvimgrep|.
+
                                                 *lister-:Avimgrep*
 :Avimgrep[!] /{pattern}/[g][j]
                         |:vimgrep| over files in the |argument-list|.
