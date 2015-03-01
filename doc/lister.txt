@@ -29,6 +29,24 @@ COMMANDS                                        *lister-commands*
 :Avimgrep[!] /{pattern}/[g][j]
                         |:vimgrep| over files in the |argument-list|.
 
+                                                *lister-:Bfilter*
+:Bfilter[!] {pattern}   Like |:Afilter|, but for the |buffer-list|.
+
+                                                *lister-:Bgrep*
+:Bgrep[!] [arguments]   |:grep| over files in the |buffer-list|.
+                        (Like |:Agrep|, but for the |buffer-list|.)
+
+                                                *lister-:Blgrep*
+:Blgrep[!] [arguments]  Like |:Bgrep|, but with |:lgrep|.
+
+                                                *lister-:Blvimgrep*
+:Blvimgrep[!] /{pattern}/[g][j]
+                        Like |:Bvimgrep|, but with |:lvimgrep|.
+
+                                                *lister-:Bvimgrep*
+:Bvimgrep[!] /{pattern}/[g][j]
+                        |:vimgrep| over files in the |buffer-list|.
+
                                                 *lister-:Largs*
 :Largs[!]               Like |:Qargs|, but for the |location-list|.
 

@@ -51,6 +51,22 @@ function! s:arg_filter(query, bang)
 	call s:after(s:get_arg_list(), 'arguments')
 endfunction
 
+function! s:get_buffer_list()
+	return map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)')
+endfunction
+
+function! s:buffer_grep(command, query, bang)
+	let l:buffers = s:before(s:get_buffer_list())
+	call s:list_grep(s:get_buffer_list(), a:command, a:query, a:bang)
+	call s:after(s:get_buffer_list(), 'buffers')
+endfunction
+
+function! s:buffer_filter(query, bang)
+	let l:buffers = s:before(s:get_buffer_list())
+	call s:list_filter(l:buffers, 'bdelete!', a:query, a:bang == '!' ? '' : '!')
+	call s:after(s:get_buffer_list(), 'buffers')
+endfunction
+
 function! s:grep_list(list, pattern, v, lhs)
 	let l:lhs_expressions = {'text': 'v:val.text', 'file': 'bufname(v:val.bufnr)'}
 	let l:lhs = l:lhs_expressions[a:lhs]
@@ -75,6 +91,11 @@ command! -nargs=* -bang Avimgrep call s:arg_grep('vimgrep', <q-args>, <q-bang>)
 command! -nargs=* -bang Algrep call s:arg_grep('lgrep', <q-args>, <q-bang>)
 command! -nargs=* -bang Alvimgrep call s:arg_grep('lvimgrep', <q-args>, <q-bang>)
 command! -nargs=* -bang Afilter call s:arg_filter(<q-args>, <q-bang>)
+command! -nargs=* -bang Bgrep call s:buffer_grep('grep', <q-args>, <q-bang>)
+command! -nargs=* -bang Bvimgrep call s:buffer_grep('vimgrep', <q-args>, <q-bang>)
+command! -nargs=* -bang Blgrep call s:buffer_grep('lgrep', <q-args>, <q-bang>)
+command! -nargs=* -bang Blvimgrep call s:buffer_grep('lvimgrep', <q-args>, <q-bang>)
+command! -nargs=* -bang Bfilter call s:buffer_filter(<q-args>, <q-bang>)
 command! -bang -nargs=* Qgrep call s:grep_list('q', <q-args>, <q-bang>, 'text')
 command! -bang -nargs=* Lgrep call s:grep_list('l', <q-args>, <q-bang>, 'text')
 command! -bang -nargs=* Qfilter call s:grep_list('q', <q-args>, <q-bang>, 'file')
