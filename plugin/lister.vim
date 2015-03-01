@@ -5,6 +5,15 @@ function! s:sargs(bang)
 	only
 endfunction
 
+function! s:before(list)
+	let s:size_before = len(a:list)
+	return a:list
+endfunction
+
+function! s:after(list, label)
+	echo s:size_before a:label 'reduced to' len(a:list)
+endfunction
+
 function! s:to_args(list, bang)
 	let l:dict = {}
 	for l:item in a:list
@@ -13,6 +22,17 @@ function! s:to_args(list, bang)
 	let l:cmd = a:bang == '!' ? 'arglocal!' : 'args'
 	echo l:cmd
 	silent! execute l:cmd join(keys(l:dict))
+endfunction
+
+function! s:list_grep(list, command, query, bang)
+	execute 'silent' a:command.a:bang a:query join(a:list)
+endfunction
+
+function! s:list_filter(list, command, query, bang)
+	let l:op = a:bang == '!' ? '!~#' : '=~#'
+	let l:filter = 'v:val '.l:op.' "'.escape(a:query, '"\').'"'
+	let l:args = join(filter(a:list, l:filter))
+	execute 'silent' a:command l:args
 endfunction
 
 function! s:get_arg_list()
@@ -37,15 +57,14 @@ function! s:grep_list(list, pattern, v, lhs)
 	let l:op = a:v == '!' ? '!~#' : '=~#'
 	let l:filter = l:lhs.' '.l:op.' "'.escape(a:pattern, '"\').'"'
 	if a:list == 'q'
-		let l:original_size = len(getqflist())
-		call setqflist(filter(getqflist(), l:filter))
-		let l:new_size = len(getqflist())
+		let l:list = s:before(getqflist())
+		call setqflist(filter(l:list, l:filter))
+		call s:after(getqflist(), 'quickfix entries')
 	else
-		let l:original_size = len(getloclist(0))
-		call setloclist(0, filter(getloclist(0), l:filter))
-		let l:new_size = len(getloclist(0))
+		let l:list = s:before(getloclist(0))
+		call setloclist(0, filter(l:list, l:filter))
+		call s:after(getloclist(0), 'location list entries')
 	endif
-	echo l:original_size 'items trimmed to' l:new_size
 endfunction
 
 command! -bang Sargs call s:sargs(<q-bang>)
