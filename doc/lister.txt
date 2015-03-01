@@ -62,9 +62,10 @@ COMMANDS                                        *lister-commands*
                         match {pattern}.
 
                                                 *lister-:Sargs*
-:Sargs                  Set the |argument-list| to the set of files opened in
-                        windows on the current tab page and close all windows
-                        but the current one.
+:Sargs[!]               Set the |argument-list| to the set of files opened in
+                        windows on the current tab page. Close all windows
+                        but the current one. If [!] is given, use the local
+                        argument list.
 
 ISSUES AND TODO                                 *lister-issues*
                                                 *lister-todo*

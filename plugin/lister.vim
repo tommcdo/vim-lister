@@ -1,5 +1,6 @@
-function! s:sargs()
-	execute 'arglocal!' join(map(tabpagebuflist(), 'bufname(v:val)'), ' ')
+function! s:sargs(bang)
+	let l:command = a:bang == '!' ? 'arglocal!' : 'args'
+	execute l:command join(map(tabpagebuflist(), 'bufname(v:val)'), ' ')
 	execute winnr() 'argument'
 	only
 endfunction
@@ -47,7 +48,7 @@ function! s:grep_list(list, pattern, v, lhs)
 	echo l:original_size 'items trimmed to' l:new_size
 endfunction
 
-command! Sargs call s:sargs()
+command! -bang Sargs call s:sargs(<q-bang>)
 command! -bang Qargs call s:to_args(getqflist(), <q-bang>)
 command! -bang Largs call s:to_args(getloclist(0), <q-bang>)
 command! -nargs=* -bang Agrep call s:arg_grep('grep', <q-args>, <q-bang>)
