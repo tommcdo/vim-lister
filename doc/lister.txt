@@ -9,7 +9,7 @@ INTRODUCTION                                    *lister*
 
 This plugin provides a collection of commands for dealing with Vim's lists.
 
-COMMANDS                                        *lister-mappings*
+COMMANDS                                        *lister-commands*
 
                                                 *lister-:Afilter*
 :Afilter {pattern}      Filter the |argument-list| to contain only arguments
