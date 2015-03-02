@@ -9,7 +9,41 @@ INTRODUCTION                                    *lister*
 
 This plugin provides a collection of commands for dealing with Vim's lists.
 
+Each command applies an action over a list. The commands are typically named
+in the form :{X}{action}, meaning {action} will be carried out on the list
+represented by the single character {X}. For example, |:Qgrep| performs a
+grep-like operation over the items in the |quickfix| list (denoted by `Q`).
+
+                                                *lister-list-table*
+The following table briefly describes the lists used and the letter that
+begins the commands that use them.
+
+letter    applicable list        list type       help ~
+
+A         The argument list      files           |argument-list|
+B         The buffer list        files           |buffer-list|
+L         The location list      positions       |location-list|
+Q         The quickfix list      positions       |quickfix|
+S         Splits in tab page     files           |windows|
+
+                                                *lister-action-table*
+The following table describes the general nature of actions as they apply to
+different types of lists.
+
+command              list type   behaviour ~
+
+filter               any         Filter the files in the list by a |pattern|.
+                                 [!] inverts the match.
+grep / lgrep         files       |:grep| or |:lgrep| over files.
+grep                 locations   Filter list to positions matching a
+                                 |pattern|. [!] inverts the match.
+vimgrep / lvimgrep   files       |:vimgrep| or |:lvimgrep| over files.
+args                 any         Set the |argument-list| to the files in the
+                                 list. [!] uses the local argument list.
+
 COMMANDS                                        *lister-commands*
+
+Following are detailed descriptions of the available commands.
 
                                                 *lister-:Afilter*
 :Afilter[!] {pattern}   Filter the |argument-list| to contain only filenames
