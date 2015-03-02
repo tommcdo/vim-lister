@@ -31,6 +31,7 @@ COMMANDS                                        *lister-commands*
 
                                                 *lister-:Bfilter*
 :Bfilter[!] {pattern}   Like |:Afilter|, but for the |buffer-list|.
+                        NOTE: this may change the window layout.
 
                                                 *lister-:Bgrep*
 :Bgrep[!] [arguments]   |:grep| over files in the |buffer-list|.
