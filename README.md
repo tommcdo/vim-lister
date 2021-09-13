@@ -2,7 +2,9 @@ lister.vim
 ==========
 
 lister.vim is a collection of commands for manipulating and moving between
-lists.
+lists. In contrast to the `:Cfilter` command from the [Cfilter plug-in](https://github.com/vim/vim/blob/master/runtime/pack/dist/opt/cfilter/plugin/cfilter.vim) 
+built into Vim 8.2 that matches the file path and message content, it splits it into two commands
+`:Qgrep` and `:Qfilter` that match only the message or file path. 
 
 Quickfix list and Location list
 -------------------------------
